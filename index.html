@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kimani High School — Quality Education and Good Ethics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Kimani High School — Quality Education and Good Ethics. Kisarawe, Pwani, Tanzania." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --primary:#008080; /* teal */
+      --accent:#ff8c00; /* orange */
+      --bg:#f9f9f9;
+      --text:#222;
+      --muted:#666;
+      --card:#ffffff;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:14px;
+      --radius-sm:10px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+    img{max-width:100%;display:block}
+    a{color:var(--primary);text-decoration:none}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-weight:600;cursor:pointer;box-shadow:var(--shadow);transition:.25s transform,.25s box-shadow}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    .btn.secondary{background:var(--accent);color:#111}
+    .btn.ghost{background:#fff;color:var(--primary);border:1px solid #e8e8e8}
+    .chip{display:inline-block;background:#eef9f9;color:var(--primary);padding:6px 12px;border-radius:999px;font-weight:600}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card-sm{background:var(--card);border-radius:var(--radius-sm);box-shadow:var(--shadow)}
+    .grid{display:grid;gap:20px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+    @media (max-width:900px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+    /* Top bar */
+    header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#19a3a3);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)}
+    .brand-txt{display:flex;flex-direction:column}
+    .brand-txt .name{font-weight:800;letter-spacing:.2px}
+    .brand-txt .motto{font-size:12px;color:var(--muted)}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav a{padding:10px 12px;border-radius:10px;color:#333;font-weight:600}
+    nav a.active{background:#eef9f9;color:var(--primary)}
+    .actions{display:flex;align-items:center;gap:10px}
+    .menu-btn{display:none}
+    @media (max-width:900px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex}
+    }
+
+    /* Mobile sidebar */
+    .sidebar{position:fixed;inset:0 0 0 auto;width:82vw;max-width:380px;background:#fff;box-shadow: -12px 0 30px rgba(0,0,0,.15);transform:translateX(100%);transition:.35s;z-index:80}
+    .sidebar.open{transform:translateX(0)}
+    .sidebar header{box-shadow:none;position:static}
+    .sidebar a{display:block;padding:14px 18px;border-bottom:1px solid #f0f0f0;font-weight:700}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:.25s;z-index:70}
+    .overlay.show{opacity:1;pointer-events:auto}
+
+    /* Hero */
+    .hero{position:relative;min-height:64vh;display:grid;place-items:center;overflow:hidden}
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:url('https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      filter:brightness(.65);
+    }
+    .hero .content{position:relative;color:#fff;text-align:center;padding:60px 20px}
+    .hero h1{font-family:"Playfair Display",serif;font-size:42px;margin:0 0 10px}
+    .hero p{font-size:18px;margin:0 0 24px;color:#e9f7f7}
+    .hero .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+    /* Announcements ticker */
+    .ticker{background:#fff;border-top:1px solid #eee;border-bottom:1px solid #eee}
+    .ticker .row{display:flex;gap:10px;align-items:center;padding:10px 20px}
+    .ticker .badge{background:var(--accent);color:#111;font-weight:800;border-radius:999px;padding:6px 12px}
+    .ticker .track{overflow:hidden;white-space:nowrap;position:relative}
+    .ticker .track span{display:inline-block;padding-left:100%;animation:marquee 18s linear infinite;color:#333}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+    /* Sections */
+    section{padding:40px 0}
+    section .title{font-family:"Playfair Display",serif;font-size:28px;margin:0 0 12px}
+    .subtitle{color:var(--muted);margin-bottom:16px}
+
+    /* Inputs */
+    .input,select{border:1px solid #e5e5e5;border-radius:12px;padding:10px 12px;outline:none;transition:.2s;background:#fff}
+    .input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #eef9f9}
+
+    /* Results cards */
+    .result-card{padding:16px}
+    .result-card h4{margin:0 0 6px}
+    .result-meta{font-size:14px;color:var(--muted)}
+    .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .filters{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 18px}
+
+    /* About */
+    .about-block{padding:18px}
+    .list{display:grid;gap:8px}
+    .list li{list-style:disc;margin-left:18px}
+    .team-card{padding:16px;display:flex;gap:14px;align-items:center}
+    .avatar{width:54px;height:54px;border-radius:12px;background:#eef3f3;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--primary)}
+
+    /* Gallery */
+    .gallery img{border-radius:12px;object-fit:cover;height:180px;width:100%}
+
+    /* Teachers */
+    .teacher-card{padding:16px}
+    .teacher-card .name{font-weight:800}
+    .contact-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+
+    /* Admission */
+    table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden}
+    thead th{background:#eef9f9;color:#044;border-bottom:1px solid #e5e5e5;padding:12px;text-align:left}
+    tbody td{border-bottom:1px solid #eee;padding:12px}
+
+    /* FAQ */
+    .faq-item{border:1px solid #eee;border-radius:12px;overflow:hidden;background:#fff}
+    .faq-q{padding:14px 16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+    .faq-a{padding:0 16px;height:0;overflow:hidden;transition:.25s}
+    .faq-item.open .faq-a{padding:12px 16px;height:auto;border-top:1px solid #f0f0f0}
+
+    /* Calendar */
+    .calendar-item{padding:14px;border:1px dashed #e3e3e3;border-radius:12px;background:#fff}
+
+    /* Contact */
+    .contact-form{display:grid;gap:12px}
+    .contact-form textarea{min-height:120px;resize:vertical}
+    .map{border:0;width:100%;height:280px;border-radius:12px;box-shadow:var(--shadow);}
+
+    /* Footer */
+    footer{background:#0f3d3d;color:#eaf6f6;padding:28px 0;margin-top:40px}
+    footer a{color:#bdf2f2}
+    .foot-grid{display:grid;gap:20px}
+    @media (min-width:720px){.foot-grid{grid-template-columns:2fr 1fr 1fr}}
+
+    /* Floating WhatsApp */
+    .wa-float{position:fixed;bottom:20px;right:20px;z-index:60;display:flex;align-items:center;gap:10px}
+    .wa-btn{background:#25D366;color:#fff;border-radius:999px;padding:12px 16px;font-weight:800;box-shadow:var(--shadow)}
+    .wa-helper{background:#fff;border:1px solid #eee;border-radius:12px;padding:10px 12px;color:#333;box-shadow:var(--shadow);display:none}
+    @media (min-width:760px){.wa-helper{display:block}}
+
+    /* Global popup */
+    .popup{position:fixed;bottom:20px;left:20px;background:#fff;border:1px solid #eee;border-left:6px solid var(--accent);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);z-index:65;display:flex;gap:12px;align-items:flex-start;max-width:420px;opacity:0;transform:translateY(20px);pointer-events:none;transition:.35s}
+    .popup.show{opacity:1;transform:translateY(0);pointer-events:auto}
+    .popup .close{background:transparent;border:none;color:#888;font-weight:800;cursor:pointer}
+
+    /* Smooth section show */
+    .page{display:none;animation:fade .35s}
+    .page.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="nav container">
+      <div class="brand">
+        <div class="logo">KH</div>
+        <div class="brand-txt">
+          <span class="name">Kimani High School</span>
+          <span class="motto">Quality Education and Good Ethics</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul id="top-nav">
+          <li><a href="#home" data-link class="active">Home</a></li>
+          <li><a href="#about" data-link>About Us</a></li>
+          <li><a href="#results" data-link>Results</a></li>
+          <li><a href="#news" data-link>News</a></li>
+          <li><a href="#gallery" data-link>Gallery</a></li>
+          <li><a href="#teachers" data-link>Teachers</a></li>
+          <li><a href="#admission" data-link>Admission</a></li>
+          <li><a href="#subjects" data-link>Subjects</a></li>
+          <li><a href="#calendar" data-link>Calendar</a></li>
+          <li><a href="#studentlife" data-link>Student Life</a></li>
+          <li><a href="#faq" data-link>FAQ</a></li>
+          <li><a href="#contact" data-link>Contact</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="btn ghost" href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">NECTA</a>
+        <button class="btn menu-btn" id="openSidebar" aria-label="Open menu">Menu</button>
+      </div>
+    </div>
+    <div class="ticker">
+      <div class="row container">
+        <span class="badge">Announcements</span>
+        <div class="track">
+          <span>
+            Welcome to Kimani High School — Quality Education and Good Ethics •
+            2023 NECTA Results available •
+            New term starts next month •
+            WhatsApp us for quick support •
+            Kisarawe, Pwani, Tanzania
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Sidebar -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="sidebar" id="sidebar" aria-label="Mobile menu">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">KH</div>
+        <div class="brand-txt">
+          <span class="name">Kimani High School</span>
+          <span class="motto">Quality Education and Good Ethics</span>
+        </div>
+      </div>
+      <button class="btn ghost" id="closeSidebar">Close</button>
+    </div>
+    <a href="#home" data-link>Home</a>
+    <a href="#about" data-link>About Us</a>
+    <a href="#results" data-link>Results</a>
+    <a href="#news" data-link>News & Announcements</a>
+    <a href="#gallery" data-link>School Gallery</a>
+    <a href="#teachers" data-link>Teachers & Staff</a>
+    <a href="#admission" data-link>Admission</a>
+    <a href="#subjects" data-link>Subjects</a>
+    <a href="#calendar" data-link>School Calendar</a>
+    <a href="#studentlife" data-link>Student Life</a>
+    <a href="#faq" data-link>FAQ</a>
+    <a href="#contact" data-link>Contact</a>
+  </aside>
+
+  <!-- Pages -->
+  <main class="container">
+
+    <!-- Home -->
+    <section id="home" class="page active" aria-label="Homepage">
+      <div class="hero card">
+        <div class="content">
+          <span class="chip">Kisarawe, Pwani, Tanzania</span>
+          <h1>Kimani High School</h1>
+          <p>Quality Education and Good Ethics. Empowering students to learn, lead, and thrive.</p>
+          <div class="cta">
+            <a class="btn" href="#about" data-link>Learn About Us</a>
+            <a class="btn secondary" href="#results" data-link>View Results</a>
+            <a class="btn ghost" href="#contact" data-link>Contact Us</a>
+          </div>
+          <div class="cta" style="margin-top:8px">
+            <a class="btn ghost" href="#about" data-link>About</a>
+            <a class="btn ghost" href="#results" data-link>Results</a>
+            <a class="btn ghost" href="#contact" data-link>Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <h2 class="title">Welcome to Kimani High School</h2>
+        <p class="subtitle">We are committed to academic excellence and character building rooted in strong ethics.</p>
+        <div class="grid grid-3">
+          <div class="card about-block">
+            <h3>Academic Excellence</h3>
+            <p>Modern curriculum, supportive teachers, and a culture of continuous improvement.</p>
+          </div>
+          <div class="card about-block">
+            <h3>Community & Values</h3>
+            <p>We nurture respect, integrity, and responsibility in every learner.</p>
+          </div>
+          <div class="card about-block">
+            <h3>Future Ready</h3>
+            <p>Digital resources, clubs, sports, and activities that shape well-rounded graduates.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="page" aria-label="About Us">
+      <h2 class="title">About Kimani High School</h2>
+      <p class="subtitle">History, mission, vision, leadership, values, and subjects offered.</p>
+
+      <div class="grid grid-2">
+        <div class="card about-block">
+          <h3>History</h3>
+          <p>Kimani High School has grown alongside the Kisarawe community, serving students with dedication and care.</p>
+        </div>
+        <div class="card about-block">
+          <h3>Mission & Vision</h3>
+          <p><strong>Mission:</strong> Deliver quality education and nurture ethical leaders. <br><strong>Vision:</strong> A thriving school recognized for academic excellence and strong values.</p>
+        </div>
+      </div>
+
+      <section>
+        <h3 class="title">Administration Team</h3>
+        <div class="grid grid-3">
+          <div class="card team-card">
+            <div class="avatar">A</div>
+            <div>
+              <div><strong>Headmaster:</strong> Alex Kimani</div>
+              <div class="result-meta">Leadership & Academic Affairs</div>
+            </div>
+          </div>
+          <div class="card team-card">
+            <div class="avatar">D</div>
+            <div>
+              <div><strong>Deputy Head:</strong> Diana M.</div>
+              <div class="result-meta">Discipline & Operations</div>
+            </div>
+          </div>
+          <div class="card team-card">
+            <div class="avatar">E</div>
+            <div>
+              <div><strong>Exams Officer:</strong> Eric K.</div>
+              <div class="result-meta">Assessments & NECTA Liaison</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="title">Core values</h3>
+        <ul class="list">
+          <li>Integrity</li>
+          <li>Respect</li>
+          <li>Responsibility</li>
+          <li>Excellence</li>
+          <li>Community Service</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="title">Subjects offered</h3>
+        <div class="grid grid-3">
+          <div class="card-sm about-block"><strong>Mathematics</strong><div class="result-meta">Form I–IV</div></div>
+          <div class="card-sm about-block"><strong>English</strong><div class="result-meta">Language & Literature</div></div>
+          <div class="card-sm about-block"><strong>Kiswahili</strong><div class="result-meta">Lugha ya Taifa</div></div>
+          <div class="card-sm about-block"><strong>Biology</strong><div class="result-meta">Life Sciences</div></div>
+          <div class="card-sm about-block"><strong>Chemistry</strong><div class="result-meta">Physical Sciences</div></div>
+          <div class="card-sm about-block"><strong>Physics</strong><div class="result-meta">Mechanics & Electricity</div></div>
+          <div class="card-sm about-block"><strong>Geography</strong><div class="result-meta">Earth & Human Systems</div></div>
+          <div class="card-sm about-block"><strong>History</strong><div class="result-meta">Tanzania & World</div></div>
+          <div class="card-sm about-block"><strong>Civics</strong><div class="result-meta">Citizenship & Ethics</div></div>
+          <div class="card-sm about-block"><strong>Computer Studies</strong><div class="result-meta">Digital Skills</div></div>
+          <div class="card-sm about-block"><strong>Commerce</strong><div class="result-meta">Business Basics</div></div>
+          <div class="card-sm about-block"><strong>Bookkeeping</strong><div class="result-meta">Accounting Fundamentals</div></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="grid grid-2">
+          <div class="card about-block">
+            <h3>Visit Us</h3>
+            <p>We are located in Kisarawe, Pwani, Tanzania. Reach out via email, phone, or WhatsApp.</p>
+            <div class="contact-row">
+              <a class="btn" href="mailto:KarimKombo141@gmail.com">Email us</a>
+              <a class="btn secondary" href="https://wa.me/message/POYCMISETBYGD1" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="btn ghost" href="tel:+255653703697">Call +255653703697</a>
+            </div>
+            <div class="contact-row">
+              <a class="btn ghost" href="tel:+255742703697">Call +255742703697</a>
+              <a class="btn ghost" href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">NECTA Portal</a>
+            </div>
+          </div>
+          <div class="card about-block">
+            <h3>School map</h3>
+            <iframe class="map" title="Google Maps: Kimani High School, Kisarawe"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63872.85796924048!2d39.031!3d-6.899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sKisarawe!5e0!3m2!1sen!2stz!4v1700000000000"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <div class="contact-row" style="margin-top:8px">
+        <a class="btn" href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">Results</a>
+        <a class="btn secondary" href="https://wa.me/message/POYCMISETBYGD1" target="_blank" rel="noopener">Message on WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="page" aria-label="Results">
+      <h2 class="title">Exam Results</h2>
+      <p class="subtitle">Search, filter by year, view performance summary, and download placeholders.</p>
+
+      <div class="card" style="padding:16px">
+        <div class="filters">
+          <input id="search" class="input" type="search" placeholder="Search student or exam..." />
+          <select id="year">
+            <option value="all">All Years</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+          </select>
+          <button class="btn" id="clearFilters">Clear</button>
+          <a class="btn ghost" href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">NECTA Main Portal</a>
+          <a class="btn secondary" href="https://onlinesys.necta.go.tz/results/2023/csee/results/psle.htm" target="_blank" rel="noopener">2023 NECTA Results (PSLE)</a>
+        </div>
+
+        <div id="summary" class="grid grid-3">
+          <div class="card-sm result-card">
+            <h4>Pass Rate</h4>
+            <div class="result-meta" id="passRate">—</div>
+          </div>
+          <div class="card-sm result-card">
+            <h4>Top Performers</h4>
+            <div class="result-meta" id="topPerformers">—</div>
+          </div>
+          <div class="card-sm result-card">
+            <h4>Total Candidates</h4>
+            <div class="result-meta" id="totalCandidates">—</div>
+          </div>
+        </div>
+
+        <div id="resultsGrid" class="grid grid-3" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <!-- News & Announcements -->
+    <section id="news" class="page" aria-label="News & Announcements">
+      <h2 class="title">News & Announcements</h2>
+      <p class="subtitle">Updates, events, examination alerts, and community notices.</p>
+      <div class="grid grid-3">
+        <article class="card result-card">
+          <h4>Form IV Mock Exams</h4>
+          <div class="result-meta">Schedule released — prepare accordingly.</div>
+        </article>
+        <article class="card result-card">
+          <h4>Parent–Teacher Meeting</h4>
+          <div class="result-meta">Upcoming Saturday at 10:00 AM in the main hall.</div>
+        </article>
+        <article class="card result-card">
+          <h4>Sports Day</h4>
+          <div class="result-meta">Join us for inter-house competitions next month.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="page" aria-label="School Gallery">
+      <h2 class="title">School Gallery</h2>
+      <p class="subtitle">Snapshots from campus life. (Placeholders)</p>
+      <div class="grid grid-3 gallery">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop" alt="Classroom" />
+        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop" alt="Library" />
+        <img src="https://images.unsplash.com/photo-1601933470920-2f6ac266e6cf?q=80&w=800&auto=format&fit=crop" alt="Sports field" />
+        <img src="https://images.unsplash.com/photo-1548438294-1b6330db8d1e?q=80&w=800&auto=format&fit=crop" alt="Science lab" />
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop" alt="School event" />
+        <img src="https://images.unsplash.com/photo-1533145987535-0f3430f76789?q=80&w=800&auto=format&fit=crop" alt="Campus" />
+      </div>
+    </section>
+
+    <!-- Teachers & Staff -->
+    <section id="teachers" class="page" aria-label="Teachers & Staff">
+      <h2 class="title">Teachers & Staff</h2>
+      <p class="subtitle">Dedicated professionals guiding our students.</p>
+      <div class="grid grid-3">
+        <div class="card teacher-card">
+          <div class="name">Jane Doe</div>
+          <div class="result-meta">Mathematics</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000001">Call</a>
+            <a class="btn ghost" href="mailto:jane.doe@example.com">Email</a>
+          </div>
+        </div>
+        <div class="card teacher-card">
+          <div class="name">John Smith</div>
+          <div class="result-meta">English</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000002">Call</a>
+            <a class="btn ghost" href="mailto:john.smith@example.com">Email</a>
+          </div>
+        </div>
+        <div class="card teacher-card">
+          <div class="name">Asha N.</div>
+          <div class="result-meta">Biology</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000003">Call</a>
+            <a class="btn ghost" href="mailto:asha.n@example.com">Email</a>
+          </div>
+        </div>
+        <div class="card teacher-card">
+          <div class="name">Peter K.</div>
+          <div class="result-meta">Physics</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000004">Call</a>
+            <a class="btn ghost" href="mailto:peter.k@example.com">Email</a>
+          </div>
+        </div>
+        <div class="card teacher-card">
+          <div class="name">Mary L.</div>
+          <div class="result-meta">Chemistry</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000005">Call</a>
+            <a class="btn ghost" href="mailto:mary.l@example.com">Email</a>
+          </div>
+        </div>
+        <div class="card teacher-card">
+          <div class="name">Hassan J.</div>
+          <div class="result-meta">Geography</div>
+          <div class="contact-row">
+            <a class="btn ghost" href="tel:+255700000006">Call</a>
+            <a class="btn ghost" href="mailto:hassan.j@example.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admission -->
+    <section id="admission" class="page" aria-label="Admission">
+      <h2 class="title">Admission</h2>
+      <p class="subtitle">Requirements, fees, and how to apply.</p>
+
+      <div class="grid grid-2">
+        <div class="card about-block">
+          <h3>Requirements</h3>
+          <ul class="list">
+            <li>Completed application form</li>
+            <li>Recent academic transcripts</li>
+            <li>Birth certificate copy</li>
+            <li>Two passport-size photographs</li>
+          </ul>
+          <div class="contact-row">
+            <a class="btn" href="#contact" data-link>Ask Admissions</a>
+            <a class="btn secondary" href="#" download>Download Application (PDF)</a>
+          </div>
+        </div>
+        <div class="card about-block">
+          <h3>Fees structure</h3>
+          <table>
+            <thead>
+              <tr><th>Item</th><th>Amount</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Tuition (per term)</td><td>TZS 500,000</td></tr>
+              <tr><td>Uniform</td><td>TZS 120,000</td></tr>
+              <tr><td>Library & Lab</td><td>TZS 80,000</td></tr>
+              <tr><td>Sports</td><td>TZS 40,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card about-block" style="margin-top:18px">
+        <h3>How to apply</h3>
+        <ol class="list">
+          <li>Download and fill the application form.</li>
+          <li>Attach required documents.</li>
+          <li>Submit in person or via email.</li>
+          <li>Await confirmation and orientation details.</li>
+        </ol>
+        <div class="contact-row">
+          <a class="btn secondary" href="#" download>Download Prospectus (PDF)</a>
+          <a class="btn ghost" href="mailto:KarimKombo141@gmail.com">Email Admissions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subjects -->
+    <section id="subjects" class="page" aria-label="Subjects">
+      <h2 class="title">Subjects</h2>
+      <p class="subtitle">Our curriculum offers a broad range of subjects.</p>
+      <div class="grid grid-4">
+        <div class="card-sm about-block"><strong>Mathematics</strong><div class="result-meta">➗ Numbers & Algebra</div></div>
+        <div class="card-sm about-block"><strong>English</strong><div class="result-meta">📚 Literature & Language</div></div>
+        <div class="card-sm about-block"><strong>Kiswahili</strong><div class="result-meta">🗣 Lugha</div></div>
+        <div class="card-sm about-block"><strong>Biology</strong><div class="result-meta">🧬 Life</div></div>
+        <div class="card-sm about-block"><strong>Chemistry</strong><div class="result-meta">⚗️ Reactions</div></div>
+        <div class="card-sm about-block"><strong>Physics</strong><div class="result-meta">🔧 Mechanics</div></div>
+        <div class="card-sm about-block"><strong>Geography</strong><div class="result-meta">🌍 Earth</div></div>
+        <div class="card-sm about-block"><strong>History</strong><div class="result-meta">📜 Past</div></div>
+        <div class="card-sm about-block"><strong>Civics</strong><div class="result-meta">🧭 Ethics</div></div>
+        <div class="card-sm about-block"><strong>Computer Studies</strong><div class="result-meta">💻 Digital</div></div>
+        <div class="card-sm about-block"><strong>Commerce</strong><div class="result-meta">💼 Business</div></div>
+        <div class="card-sm about-block"><strong>Bookkeeping</strong><div class="result-meta">📒 Accounts</div></div>
+      </div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendar" class="page" aria-label="School Calendar">
+      <h2 class="title">School Calendar</h2>
+      <p class="subtitle">Term dates, exams, and holidays.</p>
+      <div class="grid grid-3">
+        <div class="calendar-item">
+          <strong>Term I</strong><br>Jan 15 – Apr 5
+        </div>
+        <div class="calendar-item">
+          <strong>Mid-term Break</strong><br>Feb 28 – Mar 3
+        </div>
+        <div class="calendar-item">
+          <strong>Term II</strong><br>May 6 – Aug 2
+        </div>
+        <div class="calendar-item">
+          <strong>Mock Exams</strong><br>Jul 10 – Jul 14
+        </div>
+        <div class="calendar-item">
+          <strong>Holiday</strong><br>Aug 5 – Aug 25
+        </div>
+        <div class="calendar-item">
+          <strong>Term III</strong><br>Sep 2 – Nov 28
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Life -->
+    <section id="studentlife" class="page" aria-label="Student Life">
+      <h2 class="title">Student Life</h2>
+      <p class="subtitle">Clubs, sports, and activities that spark curiosity and camaraderie.</p>
+      <div class="grid grid-3">
+        <div class="card about-block">
+          <h3>Sports</h3>
+          <p>Football, netball, athletics, and more with regular inter-house competitions.</p>
+        </div>
+        <div class="card about-block">
+          <h3>Clubs</h3>
+          <p>Debate, science, coding, drama, and environmental clubs.</p>
+        </div>
+        <div class="card about-block">
+          <h3>Community</h3>
+          <p>Service projects and leadership opportunities that build character.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="page" aria-label="FAQ">
+      <h2 class="title">Frequently Asked Questions</h2>
+      <p class="subtitle">Click a question to view the answer.</p>
+      <div class="grid">
+        <div class="faq-item">
+          <div class="faq-q">What are the school hours? <span>+</span></div>
+          <div class="faq-a">Classes run from 8:00 AM to 3:30 PM, Monday to Friday.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How can I check exam results? <span>+</span></div>
+          <div class="faq-a">Visit the Results page or the official NECTA portal for published results.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you offer extracurricular activities? <span>+</span></div>
+          <div class="faq-a">Yes. We have various clubs and sports open to all students.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do I contact the school? <span>+</span></div>
+          <div class="faq-a">Use the Contact page form, email, phone, or WhatsApp links provided.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="page" aria-label="Contact">
+      <h2 class="title">Contact Us</h2>
+      <p class="subtitle">We respond promptly via email, phone, and WhatsApp.</p>
+      <div class="grid grid-2">
+        <div class="card about-block">
+          <h3>Get in touch</h3>
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! We will get back to you.');">
+            <input class="input" type="text" name="name" placeholder="Your name" required />
+            <input class="input" type="email" name="email" placeholder="Your email" required />
+            <textarea class="input" name="message" placeholder="Your message" required></textarea>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+          <div class="contact-row" style="margin-top:12px">
+            <a class="btn ghost" href="mailto:KarimKombo141@gmail.com">Email</a>
+            <a class="btn ghost" href="tel:+255653703697">+255653703697</a>
+            <a class="btn ghost" href="tel:+255742703697">+255742703697</a>
+            <a class="btn secondary" href="https://wa.me/message/POYCMISETBYGD1" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+        <div class="card about-block">
+          <h3>Find us in Kisarawe</h3>
+          <iframe class="map" title="Google Maps: Kimani High School, Kisarawe"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63872.85796924048!2d39.031!3d-6.899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sKisarawe!5e0!3m2!1sen!2stz!4v1700000000000"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <h3 style="margin:0 0 8px">Kimani High School</h3>
+        <div>“Quality Education and Good Ethics”</div>
+        <div class="result-meta">Kisarawe, Pwani, Tanzania</div>
+      </div>
+      <div>
+        <strong>Contacts</strong><br>
+        <a href="mailto:KarimKombo141@gmail.com">KarimKombo141@gmail.com</a><br>
+        <a href="tel:+255653703697">+255653703697</a> / <a href="tel:+255742703697">+255742703697</a><br>
+        <a href="https://wa.me/message/POYCMISETBYGD1" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div>
+        <strong>Quick links</strong><br>
+        <a href="#results" data-link>Results</a> •
+        <a href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">NECTA</a> •
+        <a href="#about" data-link>About</a> •
+        <a href="#contact" data-link>Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <div class="wa-float">
+    <a class="wa-btn" href="https://wa.me/message/POYCMISETBYGD1" target="_blank" rel="noopener">Message us on WhatsApp</a>
+    <div class="wa-helper">Questions? Tap to chat directly.</div>
+  </div>
+
+  <!-- Global welcome popup -->
+  <div class="popup" id="welcomePopup" role="alert">
+    <div>
+      <strong>Welcome to Kimani High School</strong><br>
+      Quality Education and Good Ethics.
+    </div>
+    <button class="close" aria-label="Close" onclick="document.getElementById('welcomePopup').classList.remove('show')">×</button>
+  </div>
+
+  <script>
+    // Simple SPA navigation (hash-based)
+    const pages = document.querySelectorAll('.page');
+    const links = document.querySelectorAll('[data-link]');
+    function showSection(id){
+      pages.forEach(p => p.classList.toggle('active', p.id === id));
+      links.forEach(a => {
+        const target = (a.getAttribute('href') || '').replace('#','');
+        a.classList.toggle('active', target === id);
+      });
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function route(){
+      const id = (location.hash || '#home').replace('#','');
+      const exists = document.getElementById(id);
+      showSection(exists ? id : 'home');
+    }
+    window.addEventListener('hashchange', route);
+    route();
+
+    // Mobile sidebar
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    document.getElementById('openSidebar').addEventListener('click', ()=>{
+      sidebar.classList.add('open'); overlay.classList.add('show');
+    });
+    document.getElementById('closeSidebar').addEventListener('click', ()=>{
+      sidebar.classList.remove('open'); overlay.classList.remove('show');
+    });
+    overlay.addEventListener('click', ()=>{
+      sidebar.classList.remove('open'); overlay.classList.remove('show');
+    });
+    sidebar.querySelectorAll('[data-link]').forEach(a=>{
+      a.addEventListener('click', ()=>{
+        sidebar.classList.remove('open'); overlay.classList.remove('show');
+      });
+    });
+
+    // Welcome popup
+    const popup = document.getElementById('welcomePopup');
+    window.addEventListener('load', ()=>{
+      setTimeout(()=> popup.classList.add('show'), 600);
+      setTimeout(()=> popup.classList.remove('show'), 8000);
+    });
+
+    // FAQ toggles
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      item.querySelector('.faq-q').addEventListener('click', ()=> item.classList.toggle('open'));
+    });
+
+    // Results mock data & filters
+    const resultsData = [
+      {name:'Student A', exam:'CSEE', year:2025, grade:'A', position:1},
+      {name:'Student B', exam:'CSEE', year:2025, grade:'B', position:5},
+      {name:'Student C', exam:'CSEE', year:2024, grade:'A', position:2},
+      {name:'Student D', exam:'CSEE', year:2024, grade:'C', position:20},
+      {name:'Student E', exam:'PSLE', year:2023, grade:'A', position:3},
+      {name:'Student F', exam:'PSLE', year:2023, grade:'B', position:12}
+    ];
+    const grid = document.getElementById('resultsGrid');
+    const search = document.getElementById('search');
+    const yearSel = document.getElementById('year');
+    const clearFilters = document.getElementById('clearFilters');
+
+    function renderResults(list){
+      grid.innerHTML = '';
+      list.forEach(r=>{
+        const el = document.createElement('div');
+        el.className = 'card result-card';
+        el.innerHTML = `
+          <h4>${r.name} — ${r.exam}</h4>
+          <div class="result-meta">Year: ${r.year} • Grade: ${r.grade} • Position: ${r.position}</div>
+          <div class="result-actions">
+            <a class="btn ghost" href="https://onlinesys.necta.go.tz" target="_blank" rel="noopener">View on NECTA</a>
+            <a class="btn secondary" href="#" download>Download PDF</a>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+      renderSummary(list);
+    }
+    function renderSummary(list){
+      const total = list.length;
+      const aCount = list.filter(x=>x.grade==='A').length;
+      const passRate = total ? Math.round((aCount/total)*100) : 0;
+      const tops = list.slice().sort((a,b)=>a.position-b.position).slice(0,3).map(x=>x.name).join(', ') || '—';
+      document.getElementById('passRate').textContent = passRate + '% (A-grade proxy)';
+      document.getElementById('topPerformers').textContent = tops;
+      document.getElementById('totalCandidates').textContent = total;
+    }
+    function applyFilters(){
+      const q = (search.value || '').toLowerCase();
+      const y = yearSel.value;
+      const filtered = resultsData.filter(r=>{
+        const matchQ = !q || r.name.toLowerCase().includes(q) || r.exam.toLowerCase().includes(q) || (''+r.year).includes(q);
+        const matchY = y==='all' || (''+r.year)===y;
+        return matchQ && matchY;
+      });
+      renderResults(filtered);
+    }
+    search.addEventListener('input', applyFilters);
+    yearSel.addEventListener('change', applyFilters);
+    clearFilters.addEventListener('click', ()=>{search.value=''; yearSel.value='all'; applyFilters();});
+    renderResults(resultsData);
+
+    // Activate nav link without default navigation
+    document.querySelectorAll('[data-link]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href && href.startsWith('#')){
+          e.preventDefault();
+          history.pushState(null,'',href);
+          route();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
